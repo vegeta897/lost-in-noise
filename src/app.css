@@ -1,1 +1,14 @@
 @import 'tailwindcss';
+
+body {
+	background: var(--color-emerald-50);
+	padding:;
+}
+
+h1 {
+	color: var(--color-pink-600);
+}
+
+canvas {
+	image-rendering: pixelated;
+}
