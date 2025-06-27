@@ -17,6 +17,12 @@
 	let bitDepthPower = $state(3)
 	let bitDepth = $derived(2 ** bitDepthPower)
 
+	// TODO: Make it more interactive and fun, guiding you through the intended narrative
+	// Start with 2x2, encourage user to increase size
+	// Then encourage re-seeding, etc.
+
+	// TODO: Animated mode that fades between random seeds
+
 	$effect(() => {
 		console.log('generating pixel data...')
 		const rng = new Rand(seed, algorithm)
@@ -58,7 +64,7 @@
 <div class="flex flex-col p-4">
 	<h1 class="mb-4">Welcome to SvelteKit</h1>
 	<div class="flex gap-4">
-		<div class="flex flex-col">
+		<div class="flex flex-col gap-3">
 			<label class="flex flex-col">
 				Size: {tileWidth}
 				<input type="range" min="2" max="64" bind:value={tileWidth} />
@@ -74,12 +80,14 @@
 				</label>
 				<button onclick={() => (seed = getRandomSeed())}>Randomize</button>
 			</div>
-			{#each [PRNG.sfc32, PRNG.mulberry32, PRNG.xoshiro128ss] as algo}
-				<label>
-					<input type="radio" name="algorithm" value={algo} bind:group={algorithm} />
-					{algo}
-				</label>
-			{/each}
+			<div class="flex flex-col">
+				{#each [PRNG.sfc32, PRNG.mulberry32, PRNG.xoshiro128ss] as algo}
+					<label>
+						<input type="radio" name="algorithm" value={algo} bind:group={algorithm} />
+						{algo}
+					</label>
+				{/each}
+			</div>
 		</div>
 		<canvas
 			bind:this={canvas}
